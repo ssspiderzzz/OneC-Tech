@@ -54,9 +54,14 @@ export default function App(props) {
         <React.Fragment>
           <h1>{"Click to generate the output."}</h1>
           <button onClick={show}>Generate output</button>
+          {showOutput && (
+            <SubmissionFormData
+              sub={submissionData.data}
+              form={formData.data}
+            />
+          )}
         </React.Fragment>
       )}
-      {showOutput && <SubmissionFormData />}
     </div>
   );
 }
