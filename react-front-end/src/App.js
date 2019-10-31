@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
 import "./App.css";
 import SubmissionFormData from "./components/SubmissionFormData";
 
@@ -16,8 +17,6 @@ export default function App(props) {
 
   function fetchSubmissionData() {
     axios.get("/api/submission").then(response => {
-      // handle success
-      console.log(response.data);
       setSubmissionData({
         data: response.data,
         message: "Submission Data has been loaded!"
@@ -27,8 +26,6 @@ export default function App(props) {
 
   function fetchFormData() {
     axios.get("/api/form").then(response => {
-      // handle success
-      console.log(response.data);
       setFormData({
         data: response.data,
         message: "Form Data has been loaded!"
@@ -46,18 +43,24 @@ export default function App(props) {
     <div className="App">
       <h1>{submissionData.message}</h1>
       {!submissionData.data && (
-        <button onClick={fetchSubmissionData}>Fetch Submission Data</button>
+        <Button variant="contained" onClick={fetchSubmissionData}>
+          Fetch Submission Data
+        </Button>
       )}
       <h1>{formData.message}</h1>
       {!formData.data && (
-        <button onClick={fetchFormData}>Fetch Form Data</button>
+        <Button variant="contained" color="primary" onClick={fetchFormData}>
+          Fetch Form Data
+        </Button>
       )}
       {submissionData.data && formData.data && (
         <React.Fragment>
           {!showOutput && (
             <React.Fragment>
               <h1>{"Click to generate the output."}</h1>
-              <button onClick={show}>Generate output</button>
+              <Button variant="contained" color="secondary" onClick={show}>
+                Generate output
+              </Button>
             </React.Fragment>
           )}
           {showOutput && (
