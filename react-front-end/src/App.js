@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
 import SubmissionFormData from "./components/SubmissionFormData";
 
 export default function App(props) {
-  useEffect(() => {
-    console.log(process.env);
-  }, []);
-
   const [submissionData, setSubmissionData] = useState({
+    data: false,
     message: "Step 1: Click the button to load Submission Data!"
   });
-
   const [formData, setFormData] = useState({
+    data: false,
     message: "Step 2: Click the button to load Form Data!"
   });
 
@@ -22,6 +19,7 @@ export default function App(props) {
       console.log(response.data);
 
       setSubmissionData({
+        data: response.data,
         message: "Submission Data has been loaded!"
       });
     });
@@ -33,6 +31,7 @@ export default function App(props) {
       console.log(response.data);
 
       setFormData({
+        data: response.data,
         message: "Form Data has been loaded!"
       });
     });
@@ -47,12 +46,20 @@ export default function App(props) {
   return (
     <div className="App">
       <h1>{submissionData.message}</h1>
-      <button onClick={fetchSubmissionData}>Fetch Submission Data</button>
+      {!submissionData.data && (
+        <button onClick={fetchSubmissionData}>Fetch Submission Data</button>
+      )}
       <h1>{formData.message}</h1>
-      <button onClick={fetchFormData}>Fetch Form Data</button>
+      {!formData.data && (
+        <button onClick={fetchFormData}>Fetch Form Data</button>
+      )}
+      {submissionData.data && formData.data && (
+        <React.Fragment>
+          <h1>{"Click to generate the output."}</h1>
+          <button onClick={fetch}>Generate output</button>
+        </React.Fragment>
+      )}
       <SubmissionFormData />
-      <h1>{"formData.message"}</h1>
-      <button onClick={fetch}>Fetch Form backend</button>
     </div>
   );
 }
