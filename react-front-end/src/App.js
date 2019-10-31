@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import FormData from "./components/FormData";
+import SubmissionFormData from "./components/SubmissionFormData";
 
 export default function App(props) {
   useEffect(() => {
-    console.log(process.env.TOKEN);
+    console.log(process.env);
   }, []);
 
   const [submissionData, setSubmissionData] = useState({
@@ -17,12 +17,9 @@ export default function App(props) {
   });
 
   function fetchSubmissionData() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const submission = `https://www.formstack.com/api/v2/submission/551042206.json?oauth_token=${process.env.TOKEN}`;
-
-    axios.get(proxyurl + submission).then(response => {
+    axios.get("/api/submission").then(response => {
       // handle success
-      console.log(response.data.data);
+      console.log(response.data);
 
       setSubmissionData({
         message: "Submission Data has been loaded!"
@@ -31,16 +28,19 @@ export default function App(props) {
   }
 
   function fetchFormData() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const submission = `https://www.formstack.com/api/v2/form/3634968.json?oauth_token=${process.env.TOKEN}`;
-
-    axios.get(proxyurl + submission).then(response => {
+    axios.get("/api/form").then(response => {
       // handle success
-      console.log(response.data.fields);
+      console.log(response.data);
 
       setFormData({
         message: "Form Data has been loaded!"
       });
+    });
+  }
+
+  function fetch() {
+    axios.get("/api/submission").then(response => {
+      console.log(response.data);
     });
   }
 
@@ -50,7 +50,9 @@ export default function App(props) {
       <button onClick={fetchSubmissionData}>Fetch Submission Data</button>
       <h1>{formData.message}</h1>
       <button onClick={fetchFormData}>Fetch Form Data</button>
-      <FormData />
+      <SubmissionFormData />
+      <h1>{"formData.message"}</h1>
+      <button onClick={fetch}>Fetch Form backend</button>
     </div>
   );
 }

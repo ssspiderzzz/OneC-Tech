@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function FormData() {
+export default function SubmissionFormData() {
   return <React.Fragment></React.Fragment>;
 }
