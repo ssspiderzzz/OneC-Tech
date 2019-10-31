@@ -16,3 +16,17 @@
   overflow: auto;
   color: black;
 }
+
+table {
+  width: 100%;
+  overflow-wrap: break-word;
+  vertical-align: middle;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 5px;
+  width: 25%;
+}
