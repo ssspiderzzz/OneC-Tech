@@ -17,6 +17,10 @@ export default function SubmissionFormData(props) {
     <React.Fragment>
       <div id="tableRoot">
         <table className="box-table">
+          <colgroup>
+            <col id="col1" />
+            <col id="col2" />
+          </colgroup>
           <tbody>
             {Object.keys(newForm).map((id, index) => {
               return (

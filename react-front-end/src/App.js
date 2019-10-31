@@ -38,6 +38,8 @@ export default function App(props) {
 
   function show() {
     setShowOutput(true);
+    setSubmissionData({ ...submissionData, message: null });
+    setFormData({ ...formData, message: null });
   }
 
   return (
@@ -59,10 +61,13 @@ export default function App(props) {
             </React.Fragment>
           )}
           {showOutput && (
-            <SubmissionFormData
-              sub={submissionData.data}
-              form={formData.data}
-            />
+            <React.Fragment>
+              <h2>{"Dependents"}</h2>
+              <SubmissionFormData
+                sub={submissionData.data}
+                form={formData.data}
+              />
+            </React.Fragment>
           )}
         </React.Fragment>
       )}
