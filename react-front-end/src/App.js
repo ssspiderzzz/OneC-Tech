@@ -1,30 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+import FormData from "./components/FormData";
 
 export default function App(props) {
-  const [state, setState] = useState({
-    message: "Click the button to load data!"
+  useEffect(() => {
+    console.log(process.env.TOKEN);
+  }, []);
+
+  const [submissionData, setSubmissionData] = useState({
+    message: "Step 1: Click the button to load Submission Data!"
   });
 
-  function fetchData() {
-    axios
-      .get("/api/data") // You can simply make your requests to "/api/whatever you want"
-      .then(response => {
-        // handle success
-        console.log(response.data); // The entire response from the Rails API
+  const [formData, setFormData] = useState({
+    message: "Step 2: Click the button to load Form Data!"
+  });
 
-        console.log(response.data.message); // Just the message
-        setState({
-          message: response.data.message
-        });
+  function fetchSubmissionData() {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const submission = `https://www.formstack.com/api/v2/submission/551042206.json?oauth_token=${process.env.TOKEN}`;
+
+    axios.get(proxyurl + submission).then(response => {
+      // handle success
+      console.log(response.data.data);
+
+      setSubmissionData({
+        message: "Submission Data has been loaded!"
       });
+    });
+  }
+
+  function fetchFormData() {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const submission = `https://www.formstack.com/api/v2/form/3634968.json?oauth_token=${process.env.TOKEN}`;
+
+    axios.get(proxyurl + submission).then(response => {
+      // handle success
+      console.log(response.data.fields);
+
+      setFormData({
+        message: "Form Data has been loaded!"
+      });
+    });
   }
 
   return (
     <div className="App">
-      <h1>{state.message}</h1>
-      <button onClick={fetchData}>Fetch Data</button>
+      <h1>{submissionData.message}</h1>
+      <button onClick={fetchSubmissionData}>Fetch Submission Data</button>
+      <h1>{formData.message}</h1>
+      <button onClick={fetchFormData}>Fetch Form Data</button>
+      <FormData />
     </div>
   );
 }
