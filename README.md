@@ -1,4 +1,4 @@
-# React + Express No-Fluff Boilerplate
+# Coding Challenge
 
 Displaying data collected from a form (see the sample output below). When
 a user opens your web page you should use the API provided to retrieve the data and display
