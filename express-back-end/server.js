@@ -24,13 +24,10 @@ App.get("/api/submission", (req, res) => {
 
 App.get("/api/form", (req, res) => {
   const form = `https://www.formstack.com/api/v2/form/3634968.json?oauth_token=${process.env.TOKEN}`;
-  console.log("here");
   axios
     .get(form)
     .then(response => {
-      console.log("here222");
       // handle success
-      console.log(response.data.fields);
       res.json(response.data.fields);
     })
     .catch(error => {

@@ -12,12 +12,12 @@ export default function App(props) {
     data: false,
     message: "Step 2: Click the button to load Form Data!"
   });
+  const [showOutput, setShowOutput] = useState(false);
 
   function fetchSubmissionData() {
     axios.get("/api/submission").then(response => {
       // handle success
       console.log(response.data);
-
       setSubmissionData({
         data: response.data,
         message: "Submission Data has been loaded!"
@@ -29,7 +29,6 @@ export default function App(props) {
     axios.get("/api/form").then(response => {
       // handle success
       console.log(response.data);
-
       setFormData({
         data: response.data,
         message: "Form Data has been loaded!"
@@ -37,10 +36,8 @@ export default function App(props) {
     });
   }
 
-  function fetch() {
-    axios.get("/api/submission").then(response => {
-      console.log(response.data);
-    });
+  function show() {
+    setShowOutput(true);
   }
 
   return (
@@ -56,10 +53,10 @@ export default function App(props) {
       {submissionData.data && formData.data && (
         <React.Fragment>
           <h1>{"Click to generate the output."}</h1>
-          <button onClick={fetch}>Generate output</button>
+          <button onClick={show}>Generate output</button>
         </React.Fragment>
       )}
-      <SubmissionFormData />
+      {showOutput && <SubmissionFormData />}
     </div>
   );
 }
