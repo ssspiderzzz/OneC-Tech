@@ -17,14 +17,17 @@ table {
 }
 
 td {
+  white-space: pre-wrap;
+  word-wrap: break-word;
   border: 1px solid rgb(150, 150, 150);
   border-collapse: collapse;
   text-align: left;
-  padding: 5px;
+  padding: 10px;
   height: 40px;
 }
 
 td:first-child {
+  width: 40%;
   background-color: #f6f6f6;
   color: black;
 }

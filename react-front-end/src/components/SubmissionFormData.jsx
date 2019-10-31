@@ -1,11 +1,17 @@
+/* eslint-disable array-callback-return */
 import React from "react";
 import "./SubmissionFormData.css";
+import transformRawString from "../helpers/helpers";
 
 export default function SubmissionFormData(props) {
   let newForm = {};
+  // Create a new object to match the field id number
+  // then the algorithm become (2n) instead of (n^2)
   props.sub.map(data => {
     newForm[data.field] = {};
-    newForm[data.field].value = data.value;
+    // Use helper function to transform the submission data to
+    // the format that requires
+    newForm[data.field].value = transformRawString(data.value);
   });
   props.form.map(field => {
     if (newForm[field.id]) {
@@ -17,10 +23,6 @@ export default function SubmissionFormData(props) {
     <React.Fragment>
       <div id="tableRoot">
         <table className="box-table">
-          <colgroup>
-            <col id="col1" />
-            <col id="col2" />
-          </colgroup>
           <tbody>
             {Object.keys(newForm).map((id, index) => {
               return (
