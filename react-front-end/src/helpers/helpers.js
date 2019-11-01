@@ -5,7 +5,6 @@ export default function transformRawString(string) {
   let output = "";
   if (string.includes("=")) {
     temp = string.split("\n");
-    console.log(temp);
     temp.map(section => {
       output += section.split(" = ")[1];
       if (section.split(" = ")[0] === "address") {
